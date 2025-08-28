@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>sscns-1</title>
+<meta name="description" content="클라우드·인프라·데이터·IT 컨설팅 — 성산씨엔에스 메인 시안" />
+<!-- font-awesome -->
+<link rel="stylesheet" href="asset/fontawesome/css/all.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css">
+<!-- <script src="https://unpkg.com/htmx.org@1.9.12"></script> -->
+<style>
+    @font-face{
+        font-family: 'Noto Sans KR';
+        src: url('asset/fonts/noto-sans-kr/NotoSansKR-400.woff2') format('woff2');
+        font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face{
+        font-family: 'Noto Sans KR';
+        src: url('asset/fonts/noto-sans-kr/NotoSansKR-500.woff2') format('woff2');
+        font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face{
+        font-family: 'Noto Sans KR';
+        src: url('asset/fonts/noto-sans-kr/NotoSansKR-700.woff2') format('woff2');
+        font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face{
+        font-family: 'Noto Sans KR';
+        src: url('asset/fonts/noto-sans-kr/NotoSansKR-900.woff2') format('woff2');
+        font-weight: 900; font-style: normal; font-display: swap;
+    }
+    :root{
+        --brand:#E62C25; 
+        --ink:#111827; 
+        --muted:#667085; 
+        --radius:16px; 
+        --shadow:0 10px 30px rgba(16,24,40,.06), 0 2px 8px rgba(16,24,40,.04);
+    }
+    body{color:var(--ink); font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI',Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic','Helvetica Neue', Arial, sans-serif; font-weight: 400;}
+    a {text-decoration: none;}
+    /* 공통 */
+    .rounded-3xl{border-radius:24px}
+    .section-title{font-weight:700;letter-spacing:-.02em}
+    .lead-sm{font-size:1.2rem; font-weight: 500; margin-top: 2rem;}
+    .soft-card{border:1px solid #eef2f7;border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}
+    .btn-round{width:42px;height:42px;display:grid;place-items:center;border-radius:50%}
+
+    /* 헤더 */
+    .navbar{box-shadow:0 1px 0 rgba(16,24,40,.08)}
+    .navbar .nav-link{font-weight:600}
+    .navbar .dropdown-menu{border-radius:14px}
+
+    .bg-white {background-color: #ffffffc4 !important;}
+    /* 히어로 */
+    .hero{
+        background: radial-gradient(1200px 400px at 15% 10%, #f5f7ff 0, transparent 60%),
+                    linear-gradient(180deg,#fbfdff 0,#ffffff 60%);
+    }
+    .hero h1{font-weight:800; letter-spacing:-.02em}
+    .accent{color:var(--brand)}
+    .mt-4 {margin-top: 6rem !important;}
+    .pt-5 {padding-top: 6rem !important;}
+    .pb-lg-5 {padding-bottom: 4rem !important;}
+    /* 비즈니스 카드 */
+    #business {background-color: #F6F7FA;}
+    .biz-card{transition:transform .2s ease, box-shadow .2s ease; display: flex;
+    flex-direction: column; align-items: center; justify-content: center; position: relative;}
+    .biz-card:hover{transform:translateY(-3px); box-shadow:var(--shadow)}
+    .more {opacity: 0; position: absolute;background-color: rgba(0,0,0,0.6); width: 100%; height: 100%; border-radius: var(--radius); transition: opacity .25s ease-in-out;}
+    .more a {color: #fff; height: 100%; display: flex !important; justify-content: center;}
+    .biz-card:hover .more{ opacity: 1;}
+    .biz-card h3 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .biz-card .mb-2{display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;}
+
+    /* 솔루션 아이템 */
+    .solution-item{border:1px solid #eef2f7;border-radius:16px; padding:18px; background:#fff}
+    .monitor{border:1px solid #e5e7eb;border-radius:12px; background:linear-gradient(180deg,#f8fafc,#fff); height:170px; display:grid; place-items:center}
+    .dot-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center; background:#fef2f2;border:1px solid #fee2e2; color:#dc2626; transition: all .2s ease-in-out;}
+    .dot-btn:hover {background-color: var(--brand); color: #fff;}
+
+    /* CTA 배너 */
+    .cta{position:relative;overflow:hidden;border-radius:24px}
+    .cta::before{content:"";position:absolute;inset:0;background:
+        radial-gradient(800px 200px at -10% -20%, rgba(255,255,255,.35), transparent 60%),
+        radial-gradient(1000px 300px at 120% 120%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(135deg,#1e3a8a 0,#0ea5e9 100%);
+    }
+    .cta > *{position:relative; z-index:1}
+
+    /* 플로팅 버튼 */
+    .floating-wrap{position:fixed; right:5%; bottom:5%; display:flex; flex-direction:column; gap:10px; z-index:999}
+    .floating-btn{width:48px;height:48px;border-radius:50%; display:grid; place-items:center; background:#111; color:#fff; box-shadow:var(--shadow)}
+    .floating-btn.location{background:var(--brand);color:#fff; border:1px solid var(--brand)}
+
+    /* 푸터 */
+    footer a{color:inherit;text-decoration:none}
+
+    /* 모바일 오프캔버스 내비 스타일 */
+    .offcanvas-nav .list-group-item{border:0;padding:.9rem 0;font-weight:600}
+    .offcanvas-nav .list-group-item .sub-link{display:block;padding:.4rem 0 .4rem 1.6rem;font-weight:500;color:#667085;text-decoration:none}
+    .offcanvas-nav .list-group-item .sub-link:hover{color:#111827}
+    .offcanvas-header{border-bottom:1px solid #eef2f7}
+    .offcanvas-end{width:min(90vw,380px)}
+
+    /* === Parallax CTA === */
+    .cta-fixed {
+        position: relative;
+        overflow: hidden;
+        min-height: 350px;
+        background: url('images/cloud.png') center / cover no-repeat fixed;
+        color: #fff;
+        padding-top: 4rem;
+    }
+    .cta-fixed::after{
+        content:"";
+        position:absolute; inset:0;
+        background:
+            linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 55%, rgba(0, 0, 0, 0.35) 100%),
+            radial-gradient(900px 250px at -10% -20%, rgba(255,255,255,.25), transparent 60%);
+    }
+    .cta-fixed .content{position: relative; z-index: 1; padding: clamp(24px, 3vw, 40px);}
+    .cta-fixed .btn {font-size: 1.2rem !important;}
+    .cta-fixed .btn:hover{background-color: var(--brand); border-color: var(--brand); color: #fff !important;}
+</style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <img src="images/logo.png" alt="로고" class="img-fluid">
+            </a>
+            <!-- 데스크톱 메뉴 -->
+            <div class="collapse navbar-collapse d-none d-lg-block" id="nav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 small fw-semibold">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">회사소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#about">회사소개</a></li>
+                            <li><a class="dropdown-item" href="#history">회사연혁</a></li>
+                            <li><a class="dropdown-item" href="#contact">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#business">사업소개</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recruit">인재채용</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#news">공지사항</a></li>
+                </ul>
+            </div>
+            <!-- 데스크톱: 상단 메뉴 / 모바일: 아이콘 그룹 + 오프캔버스 토글 -->
+            <div class="d-flex ms-auto align-items-center gap-2">
+                <a class="nav-link d-none d-lg-inline" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="nav-link d-none d-lg-inline" href="#"><i class="fa-solid fa-bars"></i></a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-label="모바일 메뉴 열기">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+        <!-- 모바일 오프캔버스 메뉴 -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNav" aria-labelledby="mobileNavLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title d-flex align-items-center gap-2" id="mobileNavLabel">
+                <i class="fa-solid fa-bowling-ball text-danger"></i><span>SUNGSAN C&S</span>
+                </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="닫기"></button>
+        </div>
+        <div class="offcanvas-body offcanvas-nav">
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <button class="btn w-100 d-flex align-items-center justify-content-between p-0" data-bs-toggle="collapse" data-bs-target="#mAbout" aria-expanded="false">
+                        <span><i class="fa-solid fa-building me-2"></i>회사소개</span>
+                        <i class="fa-solid fa-chevron-down small"></i>
+                    </button>
+                    <div class="collapse pt-2" id="mAbout">
+                        <a class="sub-link" href="#about">회사소개</a>
+                        <a class="sub-link" href="#history">회사연혁</a>
+                        <a class="sub-link" href="#contact">오시는길</a>
+                    </div>
+                </div>
+                <a class="list-group-item" href="#business"><i class="fa-solid fa-layer-group me-2"></i>사업소개</a>
+                <a class="list-group-item" href="#solution"><i class="fa-solid fa-puzzle-piece me-2"></i>Solution</a>
+                <a class="list-group-item" href="#news"><i class="fa-regular fa-newspaper me-2"></i>공지사항</a>
+            </div>
+            <hr>
+            <div class="d-grid gap-2">
+                <a class="btn btn-primary" href="#contact"><i class="fa-solid fa-paper-plane me-2"></i>문의하기</a>
+                <a class="btn btn-outline-secondary" href="#"><i class="fa-solid fa-headset me-2"></i>고객지원</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO with Carousel Pagination mimic -->
+    <header class="hero pt-5 pb-3 pb-lg-5">
+    <div class="container">
+        <div class="row align-items-center gy-4">
+        <div class="col-12 col-lg-7">
+            <h1 class="display-5 mb-3">
+            IT 인프라의 모든것, <br>
+            <span class="accent">성산씨엔에스</span>와 함께하세요
+            </h1>
+            <p class="lead-sm">Everything IT infrastructure, with <span style="color: #E42D26;">SUNGSAN C&S</span></p>
+            <!-- <div class="d-flex gap-2 mt-4">
+                <a href="#business" class="btn btn-dark btn-lg">문의하기</a>
+            </div> -->
+        </div>
+        <div class="col-12 col-lg-5">
+            <div class="ratio ratio-1x1 rounded-3xl d-grid place-items-center">
+            <div class="text-center text-secondary">
+                <img src="images/main-icon.png" alt="main-icon" class="img-fluid">
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- 페이지네이션/컨트롤 UI -->
+        <div class="d-flex align-items-center justify-content-center gap-3 mt-4">
+        <button class="btn btn-sm btn-outline-secondary" id="heroPrev" aria-label="이전"><i class="fa-solid fa-angle-left"></i></button>
+        <div class="d-flex align-items-center gap-3" id="heroDots">
+            <span class="fw-bold" data-idx="1">1</span>
+            <span class="text-secondary" data-idx="2">2</span>
+            <span class="text-secondary" data-idx="3">3</span>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" id="heroNext" aria-label="다음"><i class="fa-solid fa-angle-right"></i></button>
+        <button class="btn btn-sm btn-outline-secondary" id="heroPause" aria-label="일시정지"><i class="fa-solid fa-pause"></i></button>
+        </div>
+    </div>
+    </header>
+
+    <!-- BUSINESS -->
+    <section id="business" class="py-5">
+    <div class="container">
+        <h2 class="h2 section-title mb-3">Business</h2>
+        <p class="lead-sm mb-4">고객 맞춤형 인프라부터 IT 컨설팅까지, 통합 솔루션을 제공합니다.</p>
+
+        <div class="row g-3 row-cols-1 row-cols-md-2 row-cols-lg-4">
+        <div class="col">
+            <article class="soft-card biz-card h-100 p-3">
+            <div class="mb-2">
+                <div class="biz-icon"><img src="images/si.png" alt="System Integration"></div>
+                <h3 class="h5 fw-bold mb-0">System Integration</h3>
+            </div>
+            <p class="small text-secondary">IT 시스템의 기획부터 구축, 운영까지 고객 환경에 최적화된 통합 서비스를 제공합니다.</p>
+            <div class="more">
+                <a href="#" class="stretched-link d-inline-flex align-items-center gap-2 small fw-semibold"><i class="fa-solid fa-up-right-from-square"></i> 자세히보기</a>
+            </div>
+            </article>
+        </div>
+        <div class="col">
+            <article class="soft-card biz-card h-100 p-3">
+            <div class="mb-2">
+                <div class="biz-icon"><img src="images/outsourcing.png" alt="Outsourcing"></div>
+                <h3 class="h5 fw-bold mb-0">Outsourcing</h3>
+            </div>
+            <p class="small text-secondary">서버, 네트워크, 보안 등 IT 인프라   운영을 안정적이고 전문적으로 관리해드립니다.</p>
+            <div class="more">
+                <a href="#" class="stretched-link d-inline-flex align-items-center gap-2 small fw-semibold"><i class="fa-solid fa-up-right-from-square"></i> 자세히보기</a>
+            </div>
+            </article>
+        </div>
+        <div class="col">
+            <article class="soft-card biz-card h-100 p-3">
+            <div class="mb-2">
+                <div class="biz-icon"><img src="images/itconsult.png" alt="IT Consulting"></div>
+                <h3 class="h5 fw-bold mb-0">IT Consulting</h3>
+            </div>
+            <p class="small text-secondary">기업의 디지털 전환을 위한 전략 수립부터 기술 적용까지 전문 컨설팅을 제공합니다.</p>
+            <div class="more">
+                <a href="#" class="stretched-link d-inline-flex align-items-center gap-2 small fw-semibold"><i class="fa-solid fa-up-right-from-square"></i> 자세히보기</a>
+            </div>
+            </article>
+        </div>
+        <div class="col">
+            <article class="soft-card biz-card h-100 p-3">
+            <div class="mb-2">
+                <div class="biz-icon"><img src="images/solution.png" alt="Solution"></div>
+                <h3 class="h5 fw-bold mb-0">Solution</h3>
+            </div>
+            <p class="small text-secondary">다양한 산업군에 최적화된 맞춤형 IT 솔루션을 제공하여 비즈니스 경쟁력을 높입니다.</p>
+            <div class="more">
+                <a href="#" class="stretched-link d-inline-flex align-items-center gap-2 small fw-semibold"><i class="fa-solid fa-up-right-from-square"></i> 자세히보기</a>
+            </div>
+            </article>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section id="solution" class="py-5">
+    <div class="container">
+        <h2 class="h2 section-title mb-3">Solution</h2>
+        <p class="lead-sm mb-4">산업별 니즈에 최적화된 IT 솔루션으로 비즈니스 가치를 향상시킵니다.</p>
+
+        <div class="row g-3 align-items-stretch">
+        <div class="col-12 col-lg-6">
+            <div class="solution-item h-100 d-flex gap-3">
+            <div class="flex-shrink-0" style="width:220px">
+                <img src="images/solution1.png" alt="" class="img-fluid">
+            </div>
+            <div class="flex-grow-1 d-flex flex-column">    
+                <h3 class="h6 fw-bold mb-1">YES CARE<br>(재가장기요양 업무관리 프로그램)</h3>
+                <p class="small text-secondary">요양현장의 업무를 신속 정확하게 처리하도록 효율화한 시스템</p>
+                <div class="mt-auto d-flex justify-content-end">
+                <a class="dot-btn" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="solution-item h-100 d-flex gap-3">
+            <div class="flex-shrink-0" style="width:220px">
+                <img src="images/solution2.png" alt="" class="img-fluid">
+            </div>
+            <div class="flex-grow-1 d-flex flex-column">
+                <h3 class="h6 fw-bold mb-1">SCMS<br>(웹 콘텐츠 관리시스템)</h3>
+                <p class="small text-secondary">전자정부표준프레임워크 기반의 웹 콘텐츠 관리로 효율적 운영</p>
+                <div class="mt-auto d-flex justify-content-end">
+                <a class="dot-btn" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="solution-item h-100 d-flex gap-3">
+            <div class="flex-shrink-0" style="width:220px">
+                <img src="images/solution3.png" alt="" class="img-fluid">
+            </div>
+            <div class="flex-grow-1 d-flex flex-column">
+                <h3 class="h6 fw-bold mb-1">도서관 통합일지 솔루션</h3>
+                <p class="small text-secondary">대출/반납/통계 업무 최적화 및 사용자 포털 제공</p>
+                <div class="mt-auto d-flex justify-content-end">
+                <a class="dot-btn" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="solution-item h-100 d-flex gap-3">
+            <div class="flex-shrink-0" style="width:220px">
+                <img src="images/solution4.png" alt="" class="img-fluid">
+            </div>
+            <div class="flex-grow-1 d-flex flex-column">
+                <h3 class="h6 fw-bold mb-1">영구임대보증금 지원관리 시스템</h3>
+                <p class="small text-secondary">데이터 정합성/관리를 통한 투명한 예탁금 운영 지원</p>
+                <div class="mt-auto d-flex justify-content-end">
+                <a class="dot-btn" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="py-5">
+    <div>
+        <section class="cta-fixed">
+        <div class="content container">
+            <div class="row align-items-center gy-3">
+            <div class="col-12 col-lg-8">
+                <div class="opacity-75">고객 맞춤형 클라우드 서비스를 만나보세요.</div>
+                <h3 class="display-6 fw-bold mt-1">
+                Cloud Service,<br> <span class="accent" style="color:var(--brand)">성산씨엔에스</span>와 함께하세요
+                </h3>
+            </div>
+            <div class="col-12 col-lg-4 text-lg-end">
+                <a class="btn btn-light btn-lg" href="#">
+                <i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기
+                </a>
+            </div>
+            </div>
+        </div>
+        </section>
+    </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <footer class="py-5 border-top">
+    <div class="container">
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-lg-8 small">
+                <div class="mb-2">
+                <a class="me-3" href="#privacy" style="color: var(--brand);">개인정보처리방침</a>
+                <a class="me-3" href="#about">회사소개</a>
+                <a href="#sitemap">사이트맵</a>
+                </div>
+                <img src="images/logo.png" alt="" class="img-fluid"><br/>
+                (61981) 광주광역시 서구 대남대로 465 광주상공회의소 503호<br/>
+                <span style="color: var(--brand); font-weight: 600;">TEL</span> : 062-676-9960 &nbsp; <span style="color: var(--brand); font-weight: 600;">FAX</span> : 062-676-4554 &nbsp; 사업자등록번호 : 410-86-61800<br/>
+                ©2025 SSCNS ALL RIGHTS RESERVED
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <!-- Floating buttons -->
+    <div class="floating-wrap">
+    <a href="#contact" class="floating-btn location" title="오시는길"><i class="fa-solid fa-location-dot"></i></a>
+    <button type="button" class="floating-btn" id="btnTop" title="맨 위로"><i class="fa-solid fa-chevron-up"></i></button>
+    </div>
+
+    <!-- CONTACT (앵커만) -->
+    <div id="contact"></div>
+
+    <script src="asset/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 맨 위로
+        document.getElementById('btnTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+        // 히어로 더미 페이징(숫자 강조만 순환)
+        let idx = 1; let paused=false;
+        const dots=[...document.querySelectorAll('#heroDots span')];
+        function render(){ dots.forEach(s=>s.classList.toggle('fw-bold', +s.dataset.idx===idx)); dots.forEach(s=>s.classList.toggle('text-secondary', +s.dataset.idx!==idx)); }
+        function next(){ idx = idx % 3 + 1; render(); }
+        const itv=setInterval(()=>{ if(!paused) next(); }, 3500);
+        document.getElementById('heroPrev').onclick=()=>{ idx = (idx+1)%3 || 3; render(); };
+        document.getElementById('heroNext').onclick=()=>{ next(); };
+        document.getElementById('heroPause').onclick=()=>{ paused=!paused; };
+        render();
+    </script>
+</body>
+</html>
