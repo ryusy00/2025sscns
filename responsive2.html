@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>sscns-2</title>
+<!-- font-awesome -->
+<link rel="stylesheet" href="asset/fontawesome/css/all.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css">
+
+<style>
+:root{
+    --brand:#1f6fff;         /* 메인 블루 */
+    --brand2:#0ea5e9;        /* 보조 블루 */
+    --ink:#0f172a;           /* 본문 */
+    --muted:#64748b;         /* 회색 텍스트 */
+    --r:24px;                /* 라운드 */
+    --r-lg:28px;
+    --shadow:0 12px 30px rgba(16,24,40,.08), 0 3px 10px rgba(16,24,40,.06);
+}
+body{color:var(--ink); font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI',Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic','Helvetica Neue', Arial, sans-serif; font-weight: 400;}
+    a {text-decoration: none;}
+/* HEADER */
+.navbar{box-shadow:0 10px 30px rgba(16,24,40,.06); border-radius: 0 0 18px 18px}
+.navbar .nav-link{font-weight:700}
+.nav-cta .btn{border-radius:999px; padding:.55rem 1.1rem; font-weight:800}
+.nav-cta .btn-outline-primary{box-shadow:0 6px 18px rgba(31,111,255,.08)}
+.navbar-brand img{height:26px}
+
+/* HERO — 배경/타이포/원형 백플레이트 */
+.hero-wrap{
+    /* background: linear-gradient(180deg,#eef3ff 0,#ffffff 55%); */
+    padding-top: clamp(32px,4vw,70px);
+    padding-bottom: 6rem;
+}
+.hero-title{font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.hero-title .accent{color:var(--brand)}
+.hero-sub{color:var(--muted);font-weight:500}
+.hero-cta .btn{
+    border-radius:999px; padding:.9rem 1.25rem; font-weight:800;
+    box-shadow:0 10px 30px rgba(31,111,255,.18);
+}
+.hero-illust{
+    position:relative; isolation:isolate;
+    aspect-ratio:1/1; display:grid; place-items:center;
+    border-radius:32px;
+}
+.hero-illust::before{
+    content:""; position:absolute; z-index:0;
+    width:65%; aspect-ratio:1/1; border-radius:50%;
+    background: radial-gradient(circle at 60% 40%, #1f6fff 0, #215bdd 55%, #123ea6 100%);
+    filter: drop-shadow(0 16px 28px rgba(23,72,196,.35));
+}
+.hero-illust img{position:relative; z-index:1; max-width:76%}
+
+/* SECTION HEAD */
+.section-head .lead{color:var(--muted)}
+
+/* BUSINESS — 카드 스타일(시안톤) */
+#business {padding-bottom: 5rem !important;}
+.biz-card{
+    border:1px solid #e6edff; border-radius:20px;
+    background:#fff; box-shadow:var(--shadow);
+    height:100%; padding:1.5rem;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s;
+}
+.biz-card:hover{ transform: translateY(-4px); box-shadow:0 18px 40px rgba(31,111,255,.18); border-color:#d7e3ff; }
+.biz-icon{
+    width:100px;height:80px;border-radius:18px;
+    display:grid;place-items:center;background:#eef4ff; color:var(--brand);
+}
+.biz-title{color:#1f51ff; font-weight:800}
+.biz-more{
+    width:34px;height:34px;border-radius:50%; display:grid; place-items:center;
+    border:1px solid #d7e7ff; color:#1f51ff; background:#fff;
+}
+.text-muted {width: 75%; font-size: 0.9rem;}
+
+/* SOLUTION — 좌측 메뉴/모니터/우측 설명 */
+.solution-shell{
+    background:#fff; border:1px solid #e6edff; border-radius:var(--r-lg); box-shadow:var(--shadow);
+}
+.sol-menu .list-group-item{
+    border:0; border-radius:14px; margin-bottom:10px; padding:.9rem 1rem;
+    background:#f3f7ff; color:#2557e0; font-weight:800; display:flex; justify-content:space-between; align-items:center;
+}
+.sol-menu .list-group-item.active{
+    background:linear-gradient(90deg,#1f6fff 0,#0ea5e9 100%); color:#fff;
+}
+.sol-menu .list-group-item .fa-arrow-right{opacity:0; transition:opacity .2s}
+.sol-menu .list-group-item.active .fa-arrow-right{opacity:1}
+.monitor{
+    border:1px solid #e5e7eb;border-radius:16px;background:linear-gradient(180deg,#f8fafc,#fff);
+    height:300px; display:grid; place-items:center;
+    filter: drop-shadow(0 20px 24px rgba(2,8,23,.08));
+}
+.solution-body h3{font-weight:900}
+.monitor { position: relative; }
+.monitor .screen{
+    width:100%; height:100%;
+    background:center / contain no-repeat;
+}
+
+/* 왼쪽 메뉴의 활성 항목을 감지해 이미지 교체 (기본 배경 없음) */
+.solution-shell:has(.sol-menu a[href="#sol-yes"].active)    .screen{ background-image:url('images/solution1.png'); }
+.solution-shell:has(.sol-menu a[href="#sol-scms"].active)     .screen{ background-image:url('images/solution2.png'); }
+.solution-shell:has(.sol-menu a[href="#sol-lib"].active)     .screen{ background-image:url('images/solution3.png'); }
+.solution-shell:has(.sol-menu a[href="#sol-deposit"].active) .screen{ background-image:url('images/solution4.png'); }
+
+/* CTA — 두 번째 시안 톤 */
+.cta{
+    border-radius:var(--r-lg); overflow:hidden; position:relative; color:#fff;
+    background: linear-gradient(135deg, #1e3799 0%, #1f6fff 45%, #14a5fb 100%);
+    padding-top: 3rem;
+    padding-left: 5rem;
+}
+.cta .btn{border-radius:999px; font-weight:500}
+.cta .cta-illust{max-height:260px; filter: drop-shadow(0 16px 28px rgba(0,0,0,.2))}
+.mt-lg-0 {
+    margin-top: 30px !important;
+}
+
+/* FOOTER */
+footer{border-top:1px solid #e9eef7}
+footer .brand img{height:28px}
+@media (max-width: 500px) {
+    .cta{padding-left: 3rem;}
+}
+@media (max-width: 415px) {
+    .cta{padding-left: 2rem;}
+    .cta h3 {padding-right: 2rem;}
+}
+@media (max-width: 375px) {
+    .cta > div > div > div {font-size: 0.8rem;}
+    .cta .btn {font-size: 0.9rem;}
+    .cta .btn:nth-child(2) {margin-right: 2rem;}
+    .px-4 {padding-right: 1rem !important; padding-left: 1rem !important;}
+    .cta .cta-illust{max-height:240px;}
+}
+@media (max-width: 355px) {
+    .cta .btn {font-size: 0.8rem;}
+    .cta .cta-illust{max-height:230px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="images/logo.png" alt="SUNGSAN C&S"></a>
+
+        <!-- 데스크톱 메뉴 -->
+        <div class="collapse navbar-collapse d-none d-lg-flex" id="nav">
+        <ul class="navbar-nav mx-auto small gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#about">회사소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="#business">사업소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="#recruit">인재채용</a></li>
+            <li class="nav-item"><a class="nav-link" href="#notice">공지사항</a></li>
+        </ul>
+        <div class="nav-cta d-flex align-items-center gap-2">
+            <a class="btn btn-primary" href="#contact">문의하기</a>
+            <a class="btn btn-outline-primary" href="#sitemap">사이트맵</a>
+        </div>
+    </div>
+
+    <!-- 모바일 햄버거 -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mnav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- 모바일 오프캔버스 -->
+<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="mnav">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><img src="images/logo.png" style="height:22px" alt=""></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="list-group list-group-flush">
+        <a class="list-group-item" href="#about">회사소개</a>
+        <a class="list-group-item" href="#business">사업소개</a>
+        <a class="list-group-item" href="#recruit">인재채용</a>
+        <a class="list-group-item" href="#notice">공지사항</a>
+        </div>
+        <hr>
+        <a class="btn btn-primary w-100 mb-2" href="#contact">문의하기</a>
+        <a class="btn btn-outline-primary w-100" href="#sitemap">사이트맵</a>
+    </div>
+</div>
+<div style="background: linear-gradient(0deg, #eef3ff 0, #eef3ff 40%, #ffffff 60%);">
+    <!-- HERO -->
+    <header class="hero-wrap">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+            <div class="col-12 col-lg-6 py-5">
+                <h1 class="display-4 hero-title mb-3">
+                신뢰와 기술로 완성하는<span class="accent"><br>스마트 비즈니스</span>
+                </h1>
+                <p class="hero-sub mb-4">데이터·클라우드·AI 기반 디지털 혁신</p>
+                <div class="hero-cta">
+                <a class="btn btn-primary" href="#solution">
+                    솔루션 보러가기
+                    <span class="ms-2 badge rounded-pill bg-white text-primary"><i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="hero-illust mx-auto">
+                <img src="images/main2-icon.png" class="img-fluid" alt="hero">
+                </div>
+            </div>
+            </div>
+        </div>
+    </header>
+    <!-- 사업소개 -->
+    <section id="business" class="py-5">
+        <div class="container">
+            <div class="text-center section-head mb-4">
+            <h2 class="h1 fw-bold">사업소개</h2>
+            <p class="lead">고객 맞춤형 인프라부터 IT 컨설팅까지, 통합 솔루션을 제공합니다.</p>
+            </div>
+    
+            <div class="row g-4 row-cols-1 row-cols-md-2">
+            <div class="col">
+                <article class="biz-card">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="biz-icon"><img src="images/si.png" alt="" style="height:60px"></div>
+                        <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h3 class="h5 mb-1 biz-title">System Integration</h3>
+                            <span class="biz-more"><i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                        <p class="mb-0 text-muted small">IT 시스템의 기획부터 구축, 운영까지 고객 환경에 최적화된 통합 서비스를 제공합니다.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="biz-card">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="biz-icon"><img src="images/outsourcing.png" alt="" style="height:60px"></div>
+                    <div class="w-100">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h3 class="h5 mb-1 biz-title">Outsourcing</h3>
+                        <span class="biz-more"><i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <p class="mb-0 text-muted small">서버, 네트워크, 보안 등 IT 인프라   운영을 안정적이고 전문적으로 관리해드립니다.</p>
+                    </div>
+                </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="biz-card">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="biz-icon"><img src="images/itconsult.png" alt="" style="height:60px"></div>
+                    <div class="w-100">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h3 class="h5 mb-1 biz-title">IT Consulting</h3>
+                        <span class="biz-more"><i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <p class="mb-0 text-muted small">기업의 디지털 전환을 위한 전략 수립부터 기술 적용까지 전문  컨설팅을 제공합니다.</p>
+                    </div>
+                </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="biz-card">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="biz-icon"><img src="images/solution.png" alt="" style="height:50px"></div>
+                    <div class="w-100">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h3 class="h5 mb-1 biz-title">Solution</h3>
+                        <span class="biz-more"><i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <p class="mb-0 text-muted small">다양한 산업군에 최적화된 맞춤형 IT 솔루션을 제공하여 비즈니스 경쟁력을 높입니다.</p>
+                    </div>
+                </div>
+                </article>
+            </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+
+<!-- 솔루션 -->
+<section id="solution" class="py-5">
+    <div class="container">
+        <h2 class="h3 fw-bold mb-4">산업별 니즈에 최적화된 <span class="text-primary">IT 솔루션</span>으로 비즈니스 가치를 향상시킵니다.</h2>
+
+        <div class="solution-shell p-3 p-lg-4">
+        <div class="row g-3 align-items-center">
+            <!-- 좌측 메뉴 -->
+            <div class="col-12 col-lg-3">
+            <div class="sol-menu">
+                <div class="list-group">
+                    <a class="list-group-item active" data-bs-toggle="pill" href="#sol-yes">YES CARE <i class="fa-solid fa-arrow-right"></i></a>
+                    <a class="list-group-item" data-bs-toggle="pill" href="#sol-scms">SCMS<i class="fa-solid fa-arrow-right"></i></a>
+                    <a class="list-group-item" data-bs-toggle="pill" href="#sol-lib">도서관 통합업무<i class="fa-solid fa-arrow-right"></i></a>
+                    <a class="list-group-item" data-bs-toggle="pill" href="#sol-deposit">영구예탁보증금<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 중앙 모니터 -->
+        <div class="col-12 col-lg-5">
+            <div class="monitor">
+                <div class="screen" role="img" aria-label="솔루션 미리보기"></div>
+            </div>
+        </div>
+
+        <!-- 설명 -->
+        <div class="col-12 col-lg-4">
+            <div class="tab-content solution-body">
+                <div class="tab-pane fade show active" id="sol-yes">
+                    <h3 class="h5 fw-bold">YES CARE <small class="text-muted">재가장기요양 업무관리</small></h3>
+                    <p class="small text-muted mb-3">요양센터의 업무를 신속 정확하게 효율적으로 운영 할 수 있도록 지원하는 시스템</p>
+                    <a class="btn btn-primary rounded-pill px-4" href="#"><i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기</a>
+                </div>
+                <div class="tab-pane fade" id="sol-scms">
+                    <h3 class="h5 fw-bold">SCMS <small class="text-muted">웹 콘텐츠 관리시스템</small></h3>
+                    <p class="small text-muted mb-3">전자정부표준프레임워크 기반의 웹 콘텐츠관리시스템으로써 웹사이트 운영을 효율적으로 관리할 수 있는 시스템</p>
+                    <a class="btn btn-primary rounded-pill px-4" href="#"><i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기</a>
+                </div>
+                <div class="tab-pane fade" id="sol-lib">
+                    <h3 class="h5 fw-bold">도서관 통합업무 솔루션</h3>
+                    <p class="small text-muted mb-3">도서관 운영에 필요한 일지관리를 통합으로 관리할 수 있도록 지원하는 시스템</p>
+                    <a class="btn btn-primary rounded-pill px-4" href="#"><i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기</a>
+                </div>
+                <div class="tab-pane fade" id="sol-deposit">
+                    <h3 class="h5 fw-bold">영구예탁보증금 지원관리</h3>
+                    <p class="small text-muted mb-3">영구임대주택 신규 입주자 중 장애인 등 요건 해당 세대에 대하여 임대보증금을 지원하는업무관리 시스템</p>
+                    <a class="btn btn-primary rounded-pill px-4" href="#"><i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기</a>
+                </div>
+            </div>
+        </div><!-- /solution-shell -->
+    </div>
+</section>
+
+<!-- CTA (두 번째 시안) -->
+<section class="py-5">
+    <div class="container">
+        <div class="cta">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-7" style="padding-bottom: 3rem;">
+            <div class="opacity-75">고객 맞춤형 클라우드 서비스를 만나보세요.</div>
+            <h3 class="display-6 fw-bold mt-1" style="padding-bottom: 1rem;">Cloud Service, <br><span style="color: #87d3ff;">성산씨엔에스</span>와 함께하세요</h3>
+            <div class="d-flex gap-2 mt-3">
+                <a class="btn btn-light px-4" href="#contact"><i class="fa-regular fa-circle-question me-2"></i>문의하기</a>
+                <a class="btn btn-outline-light px-4" href="#"><i class="fa-solid fa-up-right-from-square me-2"></i>자세히보기</a>
+            </div>
+            </div>
+            <div class="col-12 col-lg-5 text-end text-lg-end mt-3 mt-lg-0">
+            <img src="images/cta-cloud.png" class="img-fluid cta-illust" alt="cta">
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-5">
+    <div class="container">
+        <div class="row g-3 align-items-center">
+        <div class="col-12 col-lg-8 small">
+            <div class="brand mb-2"><img src="images/logo.png" alt="logo" style="height:28px"></div>
+            주소 : (61981) 광주광역시 서구 대남대로 465 광주상공회의소 503호 &nbsp; TEL : 062-676-9960 &nbsp; FAX : 062-676-4554 &nbsp; 사업자등록번호 : 410-86-61800<br>
+            COPYRIGHT©2025 SSCNS ALL RIGHTS RESERVED
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end small">
+            <a class="me-3" href="#privacy">개인정보처리방침</a>
+            <a class="me-3" href="#about">회사소개</a>
+            <a href="#sitemap">사이트맵</a>
+        </div>
+        </div>
+    </div>
+</footer>
+
+<script src="asset/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
